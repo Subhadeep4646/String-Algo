@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int uniqueLetterString(string s) {
+        /*2 cases arise
+        1.the character is repeating,then check for the every index in vector
+        2.the character is once in the string*/
+        unordered_map<char, vector<int>> mp;
+        int n = s.length(), ans = 0, left, right;
+        for (int i = 0; i < s.length(); i++)
+            mp[s[i]].push_back(i);
+
+        // ABCA
+        for (auto it : mp) {
+            for (int i = 0; i < it.second.size(); i++) {
+                left = (i == 0) ? (it.second[i] + 1)
+                                : (it.second[i] - it.second[i - 1]);
+                right = (i == it.second.size() - 1) ? s.size() - it.second[i]
+                                     : it.second[i + 1] - it.second[i];
+                ans += (left * right);
+            }
+        }
+        return ans;
+    }
+};
