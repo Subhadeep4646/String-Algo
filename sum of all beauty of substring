@@ -1,0 +1,26 @@
+//leetcode sum of all beauty of substrings
+// Can also be done with multiset
+
+class Solution {
+public:
+   int check(unordered_map<char,int>&mp){
+   int ans1=0,ans2=INT_MAX;
+   for(auto &it:mp){
+    ans1=max(ans1,it.second);
+    ans2=min(ans2,it.second);
+   }
+   return ans1-ans2;
+   }
+   vector<string>v;
+    int beautySum(string s) {
+        int count=0;
+        for(int i=0;i<s.length();i++){
+            unordered_map<char,int>mp;
+            for(int j=i;j<s.length();j++){
+            mp[s[j]]++;
+            count+=check(mp);
+                }
+            }
+        return count;
+    }
+};
